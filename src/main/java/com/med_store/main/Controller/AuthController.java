@@ -3,6 +3,7 @@ package com.med_store.main.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +17,11 @@ import com.med_store.main.Response.AuthenticationResponse;
 import com.med_store.main.Response.ErrorResponse;
 import com.med_store.main.Service.AuthenticationService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
+@Validated
 public class AuthController {
 
     private final AuthenticationService authService;
@@ -27,12 +31,12 @@ public class AuthController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<AuthenticationResponse> signUp(@RequestBody User user) {
+    public ResponseEntity<AuthenticationResponse> signUp(@Valid @RequestBody User user) {
         return ResponseEntity.ok(authService.signUp(user));
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<AuthenticationResponse> signIn(@RequestBody User user) {
+    public ResponseEntity<AuthenticationResponse> signIn(@Valid @RequestBody User user) {
         return ResponseEntity.ok(authService.signIn(user));
     }
 

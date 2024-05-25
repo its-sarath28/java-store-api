@@ -2,8 +2,6 @@ package com.med_store.main.Model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.NumberFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +36,6 @@ public class Medicine {
     private String company_name;
 
     @NotNull(message = "Price is required")
-    @NumberFormat
     @Column(name = "price")
     private Float price;
 

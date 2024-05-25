@@ -3,6 +3,7 @@ package com.med_store.main.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +18,18 @@ import com.med_store.main.Model.Medicine;
 import com.med_store.main.Repository.MedicineRepository;
 import com.med_store.main.Response.MedicineResponse;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/medicines")
+@Validated
 public class MedicineController {
 
     @Autowired
     private MedicineRepository medicineRepository;
 
     @PostMapping("/create-medicine")
-    public MedicineResponse createMedicine(@RequestBody Medicine medicine) {
+    public MedicineResponse createMedicine(@Valid @RequestBody Medicine medicine) {
         medicineRepository.save(medicine);
         return new MedicineResponse("Medicine created successfully");
     }
@@ -41,7 +45,7 @@ public class MedicineController {
     }
 
     @PutMapping("/update-medicine/{medicineId}")
-    public MedicineResponse updateMedicine(@PathVariable Integer medicineId, @RequestBody Medicine medicine) {
+    public MedicineResponse updateMedicine(@Valid @PathVariable Integer medicineId, @RequestBody Medicine medicine) {
         medicineRepository.findById(medicineId).map(existingMedicine -> {
             existingMedicine.setMedicine_name(medicine.getMedicine_name());
             existingMedicine.setCompany_name(medicine.getCompany_name());

@@ -2,7 +2,6 @@ package com.med_store.main.Model;
 
 import java.util.Collection;
 
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,22 +30,20 @@ public class User implements UserDetails {
     private Integer id;
 
     @NotNull(message = "First name is required")
-    @Size(min = 3, max = 10)
+    @Size(min = 3, message = "First name must be atleast 3 characters long")
     @Column(name = "first_name")
     private String first_name;
 
-    @Size(max = 10)
     @Column(name = "last_name")
     private String last_name;
 
     @NotNull(message = "Email is required")
     @Email(message = "Enter a valid email")
-    @UniqueElements
     @Column(name = "email", unique = true)
     private String email;
 
     @NotNull(message = "Password is required")
-    @Size(min = 6)
+    @Size(min = 6, message = "Password must be atleast 6 characters long")
     @Column(name = "password")
     private String password;
 
